@@ -29,5 +29,9 @@ To get the list of avaible commands, inspect the source or use the command "help
 
 ## to-dos
 1. Treat unexpected values and invalid states in the GoldbergReportMachine
-2. Make a GUI for viswax
-3. Research the viability of compiling the tools to executables.
+2. Write API to get prices from the GE
+3. Implement saving every daily production of viswax to a localfile.
+4. Create a server for rendering vis wax production statistics
+5. Implement a way to upload the localfile to the data server
+6. Make a GUI for viswax
+7. Research the viability of compiling the tools to executables.
