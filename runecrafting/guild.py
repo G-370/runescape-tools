@@ -1,61 +1,17 @@
 import math
 
-runeTable = {
-    'mud': [300, 1.5],
-    'astral' : [300, 1.5],
-    'law' : [300, 1.5],
-    'soul' : [300, 1.5],
-    'nature' : [350, 1.5],
-    'blood' : [350, 1.5],
-    'cosmic' : [400, 2],
-    'death' : [400, 2],
-    'dust' : [500, 2.5],
-    'lava' : [500, 2.5],
-    'mist' : [500, 2.5],
-    'smoke' : [500, 2.5],
-    'steam' : [500, 2.5],
-    'chaos' : [500, 2.5],
-    'air' : [1000, 5],
-    'water' : [1000, 5],
-    'earth' : [1000, 5],
-    'fire' : [1000, 5],
-    'mind' : [1000, 5],
-    'body' : [1000, 5],
-}
-
-# [GE, shop]
-runePrices = {
-    'mud': [916, 0],
-    'astral' : [444, 220],
-    'law' : [380, 378],
-    'soul' : [3097, 410],
-    'nature' : [298, 372],
-    'blood' : [567, 550],
-    'cosmic' : [290, 232],
-    'death' : [262, 310],
-    'dust' : [1415, 0],
-    'lava' : [947, 0],
-    'mist' : [1093, 0],
-    'smoke' : [1006, 0],
-    'steam' : [967, 0],
-    'chaos' : [179, 140],
-    'air' : [71, 17],
-    'water' : [19, 17],
-    'earth' : [17, 17],
-    'fire' : [105, 17],
-    'mind' : [16, 17],
-    'body' : [21, 17],
-}
-
-visPrice = 12658
-
-class VisReport:    
+class VisReport:
     def __init__(self, runetable, runeprices, visprice):
         self.slots = [[],[],[]]
         self.attempts = 0
         self.runeprices = runeprices
         self.runetable = runetable
         self.visprice = visprice
+        self.visamount = 0
+
+    def resetCoreState(self):
+        self.slots = [[],[],[]]
+        self.attempts = 0
         self.visamount = 0
 
     def insertSlot(self, whichSlot, whichRune):
@@ -117,7 +73,7 @@ class VisReport:
 
 class GoldbergReportMachine:
     def __init__(self, report):
-        self.report = VisReport(runeTable, runePrices, visPrice)
+        self.report = report
         self.run()
 
     def info(self):
@@ -193,8 +149,7 @@ class GoldbergReportMachine:
         print(f"Set the attempts done to {tries}")
 
     def reset(self):
-        self.report = None
-        self.report = VisReport(runeTable, runePrices, visPrice)
+        self.report.resetCoreState()
         print(f"Reseted state {self.report.getCoreState()} ")
 
     def profit(self):
@@ -212,8 +167,3 @@ class GoldbergReportMachine:
         for consumption in bill:
             billReadable += f"\n{math.floor(consumption['amount'])} {consumption['rune']}"
         print(f"With the amount of tries you did, your bill of materials will be {billReadable}")
-
-if (__name__ == '__main__'):
-    report = VisReport(runeTable, runePrices, visPrice)
-    machine = GoldbergReportMachine(report)
-    machine.run()
